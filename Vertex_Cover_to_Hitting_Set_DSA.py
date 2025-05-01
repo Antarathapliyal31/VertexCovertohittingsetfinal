@@ -28,10 +28,13 @@ def find_vertex_cover(G_nx, budget):
         G.remove_node(max_cover_node)
         f.write(f"Remaining graph nodes: {list(G.nodes())}\n")
 
-    f.write(f"Greedy Vertex Cover found: {vertex_cover}\n")
-    print("Greedy Vertex Cover found:" , vertex_cover)
     if len(vertex_cover) > budget:
         f.write(f"Vertex cover is not optimal, it is {len(vertex_cover) - budget} bigger\n")
+        print("Greedy Vertex Cover was not found within budget")
+    else:    
+        f.write(f"Greedy Vertex Cover found: {vertex_cover}\n")
+        print("Greedy Vertex Cover found:" , vertex_cover)
+    
 
     return vertex_cover
 
@@ -151,7 +154,7 @@ def find_greedy_hitting_set(universe, subsets):
         f.write(f"Remaining subsets: {remaining_subsets}\n")
         universe.discard(max_cover_element)
         f.write(f"Remaining universe: {universe}\n")
-    f.write(f"Greedy Vertex Cover found: {vertex_cover}\n")
+    f.write(f"Greedy Hitting Set found: {hitting_set}\n")
     return hitting_set
 
 budget = int(input("Enter integer budget: "))
@@ -194,21 +197,21 @@ print("Subsets (edges):", subsets, "\n")
 print("Brute force Vertex Cover result: \n")
 min_vertex_cover = minimum_vertex_cover_search(g, budget)
 
-print("Greedy Vertex Cover result: \n")
-vertex_cover = find_vertex_cover(g, budget)
-if (is_vertex_cover(g, vertex_cover) == False):
-    print ("the set: ", vertex_cover, "is not a vertex cover")
+# print("Greedy Vertex Cover result: \n")
+# vertex_cover = find_vertex_cover(g, budget)
+# if (is_vertex_cover(g, vertex_cover) == False):
+#     print ("the set: ", vertex_cover, "is not a vertex cover")
 
 visualize_graph(g, "Brute Force Vertex Cover Graph", "Brute_Force_Vertex_cover.png", min_vertex_cover)
 
-print("Greedy Htting set result: \n")
-greedy_hitting_set = find_greedy_hitting_set(universe, subsets)
-print("Greedy Hitting Set:", greedy_hitting_set)
-if (is_hitting_set(subsets, greedy_hitting_set)== False):
-    print ("the set: ", greedy_hitting_set, "is not a hitting_set")
+# print("Greedy Htting set result: \n")
+# greedy_hitting_set = find_greedy_hitting_set(universe, subsets)
+# print("Greedy Hitting Set:", greedy_hitting_set)
+# if (is_hitting_set(subsets, greedy_hitting_set)== False):
+#     print ("the set: ", greedy_hitting_set, "is not a hitting_set")
 
-if(is_vertex_cover(g, greedy_hitting_set) == False):
-    print ("the set: ", greedy_hitting_set, "is not a vertex cover")
+# if(is_vertex_cover(g, greedy_hitting_set) == False):
+#     print ("the set: ", greedy_hitting_set, "is not a vertex cover")
 
 print("Brute Force Hitting Set result: \n")
 optimal_hitting_set = brute_force_hitting_set(min_universe, subsets, budget)
